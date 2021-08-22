@@ -1,6 +1,5 @@
 package org.acme
 
-import com.fasterxml.jackson.annotation.JsonProperty
 import org.jboss.resteasy.reactive.RestPath
 import javax.ws.rs.*
 import javax.ws.rs.core.MediaType
@@ -30,4 +29,4 @@ class TodoResource (private val todoService: TodoService) {
 
 }
 
-data class TodoDto(@JsonProperty("description") val description: String)
+data class TodoDto(val description: String)
