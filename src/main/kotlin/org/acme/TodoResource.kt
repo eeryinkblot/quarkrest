@@ -1,5 +1,7 @@
 package org.acme
 
+import io.smallrye.common.annotation.Blocking
+import kotlinx.coroutines.delay
 import org.jboss.resteasy.reactive.RestPath
 import javax.ws.rs.*
 import javax.ws.rs.core.MediaType
@@ -11,6 +13,21 @@ class TodoResource (private val todoService: TodoService) {
     @Produces(MediaType.APPLICATION_JSON)
     fun getAllTodos() : List<TodoDto> {
         return todoService.getAllTodos()
+    }
+
+    @GET
+    @Blocking
+    @Path("{index}/blocking")
+    fun getTodoBlocking(@RestPath index: Int): TodoDto {
+        Thread.sleep(2000)
+        return todoService.getAt(index)
+    }
+
+    @GET
+    @Path("{index}/suspend")
+    suspend fun getTodoSuspend(@RestPath index: Int): TodoDto {
+        delay(2000)
+        return todoService.getAt(index)
     }
 
     @POST

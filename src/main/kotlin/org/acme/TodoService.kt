@@ -20,4 +20,8 @@ class TodoService {
         todos.removeAt(index)
     }
 
+    fun getAt(index: Int): TodoDto {
+        return todos[index]
+    }
+
 }
